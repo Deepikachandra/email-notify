@@ -1,0 +1,16 @@
+{
+  "name": "email-notif",
+  "version": "1.0.0",
+  "description": "email notification service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-ses": "^3.629.0",
+    "dotenv": "^16.4.5",
+    "npm": "^10.8.2"
+  }
+}
