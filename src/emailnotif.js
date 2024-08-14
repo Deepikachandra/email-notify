@@ -3,12 +3,10 @@ require("dotenv").config();
 
 const SES_CONFIG = {
     credentials: {
-       // accessKeyId : process.env.AWS_ACCESS_KEY,
-        accessKeyId : "AKIA4MI2JL76ZIWEIBNE",
-       // secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        secretAccessKey: "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",
+        accessKeyId : process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     },
-    region: "ap-south-1"
+    region: process.env.AWS_SES_REGION
 };
 
 // create ses service object
@@ -17,7 +15,7 @@ const sesClient = new SESClient(SES_CONFIG);
   const sendEmail = async (recipientEmail, name) => {
 
     let params = {
-        Source: "deepikanitraipur@gmail.com",
+        Source: process.env.AWS_SES_SENDER,
         Destination: {
           ToAddresses: [recipientEmail] // Email address/addresses that you want to send your email
         },
