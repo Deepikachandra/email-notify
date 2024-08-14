@@ -1,5 +1,6 @@
 const {SESClient, SendEmailCommand} = require("@aws-sdk/client-ses");
 require("dotenv").config();
+const nodemailer = require("nodemailer");
 
 const SES_CONFIG = {
     credentials: {
@@ -15,7 +16,7 @@ const sesClient = new SESClient(SES_CONFIG);
   const sendEmail = async (recipientEmail, name) => {
 
     let params = {
-        Source: process.env.AWS_SES_SENDER,
+        Source: process.env.SENDER_EMAIL,
         Destination: {
           ToAddresses: [recipientEmail] // Email address/addresses that you want to send your email
         },
@@ -40,13 +41,25 @@ const sesClient = new SESClient(SES_CONFIG);
         }
       };
 
-      try{
-        const sendEmailCommand = new SendEmailCommand(params);
-        const res = await sesClient.send(sendEmailCommand);
-        console.log("email sent");
-      } catch(error){
-        console.log(error);
+      // Retrying logic
+      let info;
+      for (let i = 0; i < 3; i++) {
+        try {
+          const sendEmailCommand = new SendEmailCommand(params);
+           info = await sesClient.send(sendEmailCommand);
+          console.log("email sent within 3 attempts");
+          break;
+        } catch (e) {
+         // console.log(e)
+         error=e
+         console.log("attempt np", i)
+        }
       }
+
+      if(info == undefined) {
+        console.log("email not sent")
+      } 
+     
   }
 
   sendEmail("deepikanitraipur@gmail.com", "deepika");
