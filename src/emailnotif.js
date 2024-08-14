@@ -1,6 +1,5 @@
 const {SESClient, SendEmailCommand} = require("@aws-sdk/client-ses");
 require("dotenv").config();
-const nodemailer = require("nodemailer");
 
 const SES_CONFIG = {
     credentials: {
@@ -52,7 +51,7 @@ const sesClient = new SESClient(SES_CONFIG);
         } catch (e) {
          // console.log(e)
          error=e
-         console.log("attempt np", i)
+         console.log("attempt no", i)
         }
       }
 
@@ -62,5 +61,5 @@ const sesClient = new SESClient(SES_CONFIG);
      
   }
 
-  sendEmail("deepikanitraipur@gmail.com", "deepika");
+  sendEmail(process.env.TO_EMAIL_ID, process.env.TO_RECEIVER_NAME);
 
