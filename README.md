@@ -11,3 +11,9 @@ SENDER_EMAIL= Verified email id
 TO_EMAIL_ID= Receivers email id
 
 TO_RECEIVER_NAME= Receivers name
+
+----------------------------
+
+Run command
+
+node ./src/emailnotif.js
